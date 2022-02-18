@@ -1,4 +1,5 @@
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 import PrivateRoute from "common/PrivateRoute";
