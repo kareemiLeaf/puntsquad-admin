@@ -26,6 +26,7 @@ function AddNewsComponent({ styles, getNews }) {
   const [loading, setLoading] = useState(false);
 
   const handleValue = async (values, actions) => {
+    setLoading(true);
     const data = new FormData();
     data.append("image", img);
     data.append("name", values.name);
@@ -53,7 +54,7 @@ function AddNewsComponent({ styles, getNews }) {
         message.success("News added successfully");
       })
       .catch(function (error) {
-        message.error(error?.response?.error);
+        message.error(error?.response?.data?.message);
         setLoading(false);
       });
   };

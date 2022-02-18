@@ -9,22 +9,16 @@ function UserCard({ data }) {
   return (
     <div
       className={styles.UserCardWrapper}
-      onClick={() => history.push(`/user-details/${data?.id}`)}
+      onClick={() => history.push(`/user-details/${data?.userId}`)}
     >
       <div>
-        <Avatar
-          size={80}
-          shape="circle"
-          src="https://i.insider.com/5f6096fc57b7da001ee11943?width=700"
-        />
-        <div className={styles.status} />
+        <Avatar size={80} shape="circle" src={data?.image} />
+        {data?.active ? <div className={styles.status} /> : null}
       </div>
       <div>
-        <p className={styles.name}>
-          {data?.first_name}&nbsp;{data?.last_name}
-        </p>
+        <p className={styles.name}>{data?.userName}</p>
         <p className={styles.email}>{data?.email}</p>
-        <p className={styles.name}>235k followers</p>
+        <p className={styles.name}>{data?.followers} followers</p>
       </div>
     </div>
   );

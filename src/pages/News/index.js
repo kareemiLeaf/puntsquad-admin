@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, message, Row } from "antd";
 import axios from "axios";
 import AddNewsComponent from "common/AddNewsComponent";
 import Loader from "common/Loader";
@@ -29,9 +29,9 @@ function News() {
         console.log(JSON.stringify(response.data));
         setResult(response.data?.results?.newsFeeds);
       })
-      .catch(function (error) {
+      .catch(function () {
         setLoading(false);
-        console.log(error);
+        message.error("something went wrong");
       });
   };
 

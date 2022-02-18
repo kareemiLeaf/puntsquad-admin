@@ -68,7 +68,7 @@ function UserDetails() {
         console.log(error);
       });
   };
-  console.log("comments", comments);
+
   const getReviews = async () => {
     setLoading(true);
     const data = { user_id: id };
@@ -92,8 +92,6 @@ function UserDetails() {
         console.log(error);
       });
   };
-
-  console.log("setReviews", reviews);
 
   useEffect(() => {
     getUserDetails();
@@ -126,7 +124,7 @@ function UserDetails() {
             </div>
             <div className="px-3">
               <p className={styles.name}>{result?.userName}</p>
-              <p className={styles.email}>itschloethes@hotmail…</p>
+              <p className={styles.email}>{result?.email}</p>
             </div>
 
             <Row gutter={20} className="px-5 mx-5">
@@ -222,6 +220,7 @@ function UserDetails() {
             key={i}
             isLast={comments?.length === i + 1}
             data={item}
+            refetch={getComments}
           />
         ))
       )}
@@ -240,6 +239,7 @@ function UserDetails() {
             isLast={reviews.length === i + 1}
             showRating={true}
             data={item}
+            refetch={getReviews}
           />
         ))
       )}

@@ -23,6 +23,7 @@ function AddTipsComponent({ styles, getTips }) {
   const [loading, setLoading] = useState(false);
 
   const handleValue = async (values, actions) => {
+    setLoading(true);
     const data = new FormData();
     data.append("image", img);
     data.append("title", values.title);
@@ -49,7 +50,7 @@ function AddTipsComponent({ styles, getTips }) {
         getTips();
       })
       .catch(function (error) {
-        message.error(error?.response?.error);
+        message.error(error?.response?.data?.message);
         setLoading(false);
       });
   };
