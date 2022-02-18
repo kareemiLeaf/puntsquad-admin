@@ -3,8 +3,7 @@ import axios from "axios";
 import AddNewsComponent from "common/AddNewsComponent";
 import Loader from "common/Loader";
 import PlayerCard from "common/PlayerCard";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 

@@ -3,8 +3,7 @@ import add from "assets/add.png";
 import axios from "axios";
 import EventComponent from "common/EventComponent";
 import Loader from "common/Loader";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 
