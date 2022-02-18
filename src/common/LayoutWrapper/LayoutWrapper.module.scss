@@ -1,0 +1,59 @@
+.LayoutWrapperWrapper {
+  .sider {
+    overflow: auto;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #15132b;
+    box-shadow: white;
+  }
+  .logo {
+    height: 120;
+    margin: 15px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 145px;
+      height: 45px;
+      object-fit: contain;
+    }
+  }
+
+  .mainMenu {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 25px;
+  }
+
+  .menuWrap {
+    background-color: transparent;
+    color: #fff;
+    border-right: 0 !important;
+  }
+
+  .menuItem {
+    color: #fff;
+    &:hover {
+      color: #4f21a3;
+      .menuicon {
+        color: #4f21a3;
+      }
+    }
+  }
+
+  .menuicon {
+    color: #464366;
+  }
+
+  .content {
+    min-height: 100vh;
+    background-color: #0d0b21;
+    padding: 20px 30px;
+  }
+}

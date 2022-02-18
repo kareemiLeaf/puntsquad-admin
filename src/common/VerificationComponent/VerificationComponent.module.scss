@@ -1,0 +1,36 @@
+.VerificationComponentWrapper {
+  padding-top: 20px;
+  width: 100%;
+  .imgWrap {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .idImgWrap {
+    height: 150px;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 100%;
+    background-color: #a5a5a5;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .username {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .date {
+    color: #a5a5a5;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+}

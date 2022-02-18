@@ -1,0 +1,29 @@
+.EventComponentWrapper {
+  background-color: #1c1a33;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  .dot {
+    height: 10px;
+    width: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+  .title {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .tips {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .clock {
+    height: 15px;
+    width: 15px;
+    margin-right: 10px;
+  }
+}

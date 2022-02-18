@@ -1,0 +1,49 @@
+.LoginWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #0d0b21;
+  padding: 20px 30px;
+
+  .logo {
+    height: 120;
+    margin: 15px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+
+    img {
+      width: 145px;
+      height: 45px;
+      object-fit: contain;
+    }
+  }
+
+  .wrap {
+    background-color: #15132b;
+    padding: 15px;
+    width: 25%;
+
+    .label {
+      margin-bottom: 3px;
+      color: #a5a5a5;
+      font-weight: 600;
+    }
+    .input {
+      background-color: transparent;
+      border-radius: 5px;
+      border: 0.25px solid #a5a5a5;
+      padding: 5px 10px;
+      width: 100%;
+      color: #fff;
+    }
+
+    .btn {
+      background-color: #6418c3;
+      border: 1px solid #6418c3;
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.CommentReviewComponentWrapper {
+  .imgWrap {
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #a5a5a5;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .desc {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
