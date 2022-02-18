@@ -71,7 +71,7 @@ function LayoutWrapper({ children }) {
   ];
 
   const history = useHistory();
-  const { pathname } = history?.location;
+  const { pathname } = history?.location || {};
 
   console.log("pathname", pathname);
   const key = routes?.find((item) => item?.route == pathname)?.key;
