@@ -33,7 +33,9 @@ function VerificationComponent({ data, refetch }) {
 
     axios(config)
       .then(function () {
-        message.success("Verification success");
+        message.success(
+          type === 1 ? "Verification success" : "Rejected the identification"
+        );
         setLoading(false);
         refetch();
       })
