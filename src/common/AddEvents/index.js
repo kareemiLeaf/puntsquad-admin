@@ -105,6 +105,12 @@ function AddEvents({ show, setShow, refetch }) {
               <Col className="mt-3">
                 <p className={styles.label}>Event duration</p>
                 <RangePicker
+                  disabledDate={(current) => {
+                    let customDate = moment().format("YYYY-MM-DD");
+                    return (
+                      current && current < moment(customDate, "YYYY-MM-DD")
+                    );
+                  }}
                   className={styles.dateInput}
                   bordered={false}
                   size="large"

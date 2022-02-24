@@ -59,7 +59,6 @@ function Report() {
     </div>
   );
   const commentData = result?.[selected];
-  console.log("commentData", commentData);
 
   const handleClick = async (type) => {
     const body =

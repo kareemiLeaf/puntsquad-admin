@@ -119,7 +119,7 @@ function VerificationComponent({ data, refetch }) {
             )}
 
             {data?.user_details?.[0] && (
-              <Popover content={content} title="Details" placement="right">
+              <Popover content={content} title="Details" placement="bottom">
                 <Col>
                   <div className={styles.idImgWrap}>
                     <div className={styles.accountWrapper}>

@@ -162,6 +162,12 @@ function AddTipsComponent({ styles, getTips, users, fetching }) {
               <Col span={12}>
                 <p className={styles.label}>Tip duration</p>
                 <DatePicker
+                  disabledDate={(current) => {
+                    let customDate = moment().format("YYYY-MM-DD");
+                    return (
+                      current && current < moment(customDate, "YYYY-MM-DD")
+                    );
+                  }}
                   value={
                     formik?.values?.expiry_date
                       ? moment(formik?.values?.expiry_date, "DD/MM/YYYY")

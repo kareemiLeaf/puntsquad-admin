@@ -123,6 +123,12 @@ function AddNewsComponent({ styles, getNews }) {
                 <Col span={12} className="mt-3">
                   <p className={styles.label}>Expiry Date</p>
                   <DatePicker
+                    disabledDate={(current) => {
+                      let customDate = moment().format("YYYY-MM-DD");
+                      return (
+                        current && current < moment(customDate, "YYYY-MM-DD")
+                      );
+                    }}
                     value={
                       values?.expiry_date
                         ? moment(values?.expiry_date, "DD/MM/YYYY")
