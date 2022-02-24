@@ -49,7 +49,7 @@ function News() {
         <Row className="mt-4" gutter={20}>
           {result?.map((item) => (
             <Col key={item?.id}>
-              <PlayerCard article={true} data={item} />
+              <PlayerCard article={true} data={item} refetch={getNews} />
             </Col>
           ))}
         </Row>

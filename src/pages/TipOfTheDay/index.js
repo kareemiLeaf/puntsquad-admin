@@ -26,8 +26,7 @@ function TipOfTheDay() {
     axios(config)
       .then(function (response) {
         setLoading(false);
-        console.log("response.data", response.data?.results);
-        setResult(response.data?.results);
+        setResult(response.data?.results?.Feeds);
       })
       .catch(function (error) {
         setLoading(false);
@@ -35,14 +34,44 @@ function TipOfTheDay() {
       });
   };
 
+  const [fetching, setFetching] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    setFetching(true);
+    const config = {
+      method: "get",
+      url: `${BASE_URL}/top-punters`,
+      headers: {
+        Accept: "application/json",
+        Authorization: await getToken(),
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        setFetching(false);
+        setUsers(response?.data?.results?.users);
+      })
+      .catch(function (error) {
+        setFetching(false);
+        console.log(error);
+      });
+  };
   useEffect(() => {
     getTips();
+    getUsers();
   }, []);
 
   return (
     <div className={styles.TipOfTheDayWrapper}>
       <h4 className="mt-3">Tip of the day</h4>
-      <AddTipsComponent styles={styles} getTips={getTips} />
+      <AddTipsComponent
+        styles={styles}
+        getTips={getTips}
+        users={users}
+        fetching={fetching}
+      />
 
       {loading ? (
         <Loader />
@@ -50,7 +79,7 @@ function TipOfTheDay() {
         <Row className="mt-4" gutter={20}>
           {result?.map((item) => (
             <Col key={item?.id} className="mb-3">
-              <PlayerCard data={item} />
+              <PlayerCard data={item} refetch={getTips} />
             </Col>
           ))}
         </Row>

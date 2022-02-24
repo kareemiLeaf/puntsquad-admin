@@ -1,7 +1,8 @@
 import { CameraFilled, SaveOutlined } from "@ant-design/icons";
-import { Button, Col, message, Row, Upload } from "antd";
+import { Button, Col, DatePicker, message, Row, Upload } from "antd";
 import axios from "axios";
 import { Formik } from "formik";
+import moment from "moment";
 import { useState } from "react";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
@@ -11,7 +12,7 @@ const EventSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(250, "Too Long!")
-    .required("Please enter title"),
+    .required("Please enter name"),
   title: Yup.string()
     .min(2, "Too Short!")
     .max(250, "Too Long!")
@@ -20,6 +21,7 @@ const EventSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(1000, "Too Long!")
     .required("Please enter description"),
+  expiry_date: Yup.string().required("Please select end date"),
 });
 function AddNewsComponent({ styles, getNews }) {
   const [img, setImg] = useState(null);
@@ -33,6 +35,7 @@ function AddNewsComponent({ styles, getNews }) {
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");
+    data.append("expiry_date", values.expiry_date);
 
     const config = {
       method: "post",
@@ -68,6 +71,7 @@ function AddNewsComponent({ styles, getNews }) {
             content: "",
             duration: "",
             name: "",
+            expiry_date: "",
           }}
           validationSchema={EventSchema}
           onSubmit={(values, actions) => {
@@ -85,6 +89,7 @@ function AddNewsComponent({ styles, getNews }) {
             handleChange,
             handleBlur,
             handleSubmit,
+            setFieldValue,
             values,
           }) => (
             <Col span={14}>
@@ -92,7 +97,7 @@ function AddNewsComponent({ styles, getNews }) {
                 <Col span={12}>
                   <p className={styles.label}>News Title</p>
                   <input
-                    placeholder="AFL Grand Plaza"
+                    placeholder="Enter news title"
                     className={styles.input}
                     onChange={handleChange("title")}
                     onBlur={handleBlur("title")}
@@ -105,7 +110,7 @@ function AddNewsComponent({ styles, getNews }) {
                 <Col span={12}>
                   <p className={styles.label}>Name</p>
                   <input
-                    placeholder="4 Hours"
+                    placeholder="Enter Publisher Name"
                     className={styles.input}
                     onChange={handleChange("name")}
                     onBlur={handleBlur("name")}
@@ -113,6 +118,26 @@ function AddNewsComponent({ styles, getNews }) {
                   />
                   {touched.name && errors.name ? (
                     <pre className="text-danger">{errors?.name}</pre>
+                  ) : null}
+                </Col>
+                <Col span={12} className="mt-3">
+                  <p className={styles.label}>Expiry Date</p>
+                  <DatePicker
+                    value={
+                      values?.expiry_date
+                        ? moment(values?.expiry_date, "DD/MM/YYYY")
+                        : ""
+                    }
+                    onChange={(e) =>
+                      setFieldValue(
+                        "expiry_date",
+                        moment(e).format("DD/MM/YYYY")
+                      )
+                    }
+                    className={styles.inputDate}
+                  />
+                  {touched.expiry_date && errors.expiry_date ? (
+                    <pre className="text-danger">{errors?.expiry_date}</pre>
                   ) : null}
                 </Col>
                 <Col span={24} className="my-3">

@@ -1,15 +1,17 @@
 import { Col, Row } from "antd";
-import searchIcon from "assets/search.png";
 import axios from "axios";
 import Loader from "common/Loader";
+import PlayerCard from "common/PlayerCard";
 import UserCard from "common/UserCard";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 
 import styles from "./Users.module.scss";
 
 function Users() {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const userTypesArr = [
     { key: "All Users", endPoint: "users-list" },
@@ -17,6 +19,7 @@ function Users() {
     { key: "Puntsclub Users", endPoint: "top-punters" },
   ];
   const [data, setData] = useState([]);
+  const [isPunts, setPunts] = useState("users-list");
   const getUsers = async (endPoint = "users-list") => {
     setLoading(true);
     const config = {
@@ -39,8 +42,33 @@ function Users() {
       });
   };
 
+  const [result, setResult] = useState([]);
+  const [tipsLoading, setTipsLoading] = useState(false);
+
+  const getTips = async () => {
+    setTipsLoading(true);
+    const config = {
+      method: "get",
+      url: `${BASE_URL}/web-feeds`,
+      headers: {
+        Authorization: await getToken(),
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        setTipsLoading(false);
+        setResult(response.data?.results?.Feeds);
+      })
+      .catch(function (error) {
+        setTipsLoading(false);
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     getUsers();
+    getTips();
   }, []);
 
   return (
@@ -51,19 +79,28 @@ function Users() {
           <div className="d-flex align-items-center justify-content-between">
             {userTypesArr?.map((item) => (
               <p
-                className={styles.links}
+                className={
+                  isPunts === item?.endPoint ? styles.linksSel : styles.links
+                }
                 key={item?.key}
-                onClick={() => getUsers(item?.endPoint)}
+                onClick={() => {
+                  setPunts(item?.endPoint);
+                  getUsers(item?.endPoint);
+                }}
               >
                 {item?.key}
               </p>
             ))}
           </div>
         </div>
-        <div className={styles.searchWrap}>
-          <img src={searchIcon} />
-          <input placeholder="Search" />
-        </div>
+        {isPunts === "top-punters" && (
+          <div
+            className={styles.searchWrap}
+            onClick={() => history.push("/new-punts-user")}
+          >
+            Add New Puntsclub User
+          </div>
+        )}
       </div>
       {loading ? (
         <Loader />
@@ -76,6 +113,18 @@ function Users() {
           ))}
         </Row>
       )}
+      {isPunts === "top-punters" &&
+        (tipsLoading ? (
+          <Loader />
+        ) : (
+          <Row className="mt-4" gutter={20}>
+            {result?.map((item) => (
+              <Col key={item?.id} className="mb-3">
+                <PlayerCard data={item} refetch={getTips} />
+              </Col>
+            ))}
+          </Row>
+        ))}
     </div>
   );
 }

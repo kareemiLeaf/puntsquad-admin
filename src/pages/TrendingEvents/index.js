@@ -1,6 +1,7 @@
 import { Col, message, Row } from "antd";
 import add from "assets/add.png";
 import axios from "axios";
+import AddEvents from "common/AddEvents";
 import EventComponent from "common/EventComponent";
 import Loader from "common/Loader";
 import { useEffect, useState } from "react";
@@ -26,7 +27,7 @@ function TrendingEvents() {
     axios(config)
       .then(function (response) {
         setLoading(false);
-        setResult(response?.data?.results);
+        setResult(response?.data?.results?.trending_hashtag);
       })
       .catch(function (error) {
         setLoading(false);
@@ -38,10 +39,11 @@ function TrendingEvents() {
     getEvents();
   }, []);
 
+  const [show, setShow] = useState(false);
   return (
     <div className={styles.TrendingEventsWrapper}>
       <h4>Trending Events</h4>
-      <div className={styles.addBtn}>
+      <div className={styles.addBtn} onClick={() => setShow(true)}>
         <img src={add} alt="add" />
         <p>Add new event</p>
       </div>
@@ -51,10 +53,11 @@ function TrendingEvents() {
       <Row gutter={15}>
         {result?.map((item) => (
           <Col span={6} key={item?.id}>
-            <EventComponent data={item} />
+            <EventComponent data={item} refetch={getEvents} />
           </Col>
         ))}
       </Row>
+      {show && <AddEvents show={show} setShow={setShow} refetch={getEvents} />}
     </div>
   );
 }

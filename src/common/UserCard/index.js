@@ -5,7 +5,6 @@ import styles from "./UserCard.module.scss";
 
 function UserCard({ data }) {
   const history = useHistory();
-  console.log("data", data);
   return (
     <div
       className={styles.UserCardWrapper}
@@ -15,10 +14,10 @@ function UserCard({ data }) {
         <Avatar size={80} shape="circle" src={data?.image} />
         {data?.active ? <div className={styles.status} /> : null}
       </div>
-      <div>
-        <p className={styles.name}>{data?.userName}</p>
+      <div className="px-2">
+        <p className={styles.name}>{data?.userName || "Nil"}</p>
         <p className={styles.email}>{data?.email}</p>
-        <p className={styles.name}>{data?.followers} followers</p>
+        <p className={styles.name}>{data?.followers || 0} followers</p>
       </div>
     </div>
   );

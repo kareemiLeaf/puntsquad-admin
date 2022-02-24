@@ -3,7 +3,7 @@ import {
   ExclamationCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Col, Image, message, Row, Space, Spin } from "antd";
+import { Col, Image, message, Popover, Row, Space, Spin } from "antd";
 import confirm from "antd/lib/modal/confirm";
 import axios from "axios";
 import { useState } from "react";
@@ -42,6 +42,23 @@ function VerificationComponent({ data, refetch }) {
         message.error(error?.message);
       });
   };
+
+  const content = (
+    <div className="d-flex align-items-center justify-content-center flex-column">
+      <div>
+        <p className="mb-0">Account Name:</p>
+        <p className="text-center">
+          {data?.user_details?.[0]?.account_name || "Nill"}
+        </p>
+      </div>
+      <div className="my-1">
+        <p className="mb-0">Account No:</p>
+        <p className="text-center">
+          {data?.user_details?.[0]?.account_number || "Nill"}
+        </p>
+      </div>
+    </div>
+  );
   return (
     <div className={styles.VerificationComponentWrapper}>
       <Row gutter={15}>
@@ -59,17 +76,68 @@ function VerificationComponent({ data, refetch }) {
             justify="space-between"
             gutter={10}
           >
-            {data?.user_details?.map((item, i) => (
-              <Col key={i}>
+            <Col>
+              <div className={styles.idImgWrap}>
+                <Image
+                  height={150}
+                  width={200}
+                  src={data?.user_details?.[0]?.photo_id || emptyImg}
+                />
+              </div>
+            </Col>
+            {data?.user_details?.[0]?.photo_id2 && (
+              <Col>
                 <div className={styles.idImgWrap}>
                   <Image
                     height={150}
                     width={200}
-                    src={item?.photo_id || emptyImg}
+                    src={data?.user_details?.[0]?.photo_id2 || emptyImg}
                   />
                 </div>
               </Col>
-            ))}
+            )}
+            {data?.user_details?.[0]?.id_front && (
+              <Col>
+                <div className={styles.idImgWrap}>
+                  <Image
+                    height={150}
+                    width={200}
+                    src={data?.user_details?.[0]?.id_front || emptyImg}
+                  />
+                </div>
+              </Col>
+            )}
+            {data?.user_details?.[0]?.id_back && (
+              <Col>
+                <div className={styles.idImgWrap}>
+                  <img
+                    alt="user-detail"
+                    src={data?.user_details?.[0]?.id_back || emptyImg}
+                  />
+                </div>
+              </Col>
+            )}
+
+            {data?.user_details?.[0] && (
+              <Popover content={content} title="Details" placement="right">
+                <Col>
+                  <div className={styles.idImgWrap}>
+                    <div className={styles.accountWrapper}>
+                      <div>
+                        <p>Account Name:</p>
+                        <p>{data?.user_details?.[0]?.account_name || "Nill"}</p>
+                      </div>
+                      <div className="my-1">
+                        <p>Account No:</p>
+                        <p>
+                          {data?.user_details?.[0]?.account_number || "Nill"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Popover>
+            )}
 
             <Col className="p-2">
               {loading ? (

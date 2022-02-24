@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import PrivateRoute from "common/PrivateRoute";
 import PublicRoute from "common/PublicRoute";
 import ScrollToTop from "common/ScrollToTop";
+import AddNewPuntUser from "pages/AddNewPuntUser";
 // import Dashboard from "pages/Dashboard";
 import IdenetityVerification from "pages/IdenetityVerification";
 import Login from "pages/Login";
@@ -36,6 +37,7 @@ function App() {
           component={IdenetityVerification}
         />
         <PrivateRoute path="/reports" exact component={Report} />
+        <PrivateRoute path="/new-punts-user" exact component={AddNewPuntUser} />
         <Route path="*" exact>
           <NotFound />
         </Route>

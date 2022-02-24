@@ -103,7 +103,7 @@ function Report() {
     <div className={styles.ReportWrapper}>
       <div className="d-flex">
         <h4>Reports</h4>
-        <h4 className="mx-5">1 Pending</h4>
+        <h4 className="mx-5">{result?.length} Pending</h4>
       </div>
 
       {loading && <Loader />}

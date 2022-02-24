@@ -3,7 +3,13 @@
   h4 {
     color: #fff;
   }
-
+  .dropdown {
+    background-color: transparent;
+    width: 100%;
+    border-radius: 5px;
+    border: 0.25px solid #a5a5a5;
+    color: #fff;
+  }
   .wrapper {
     padding: 25px 15px 50px 15px;
     border-radius: 15px;
@@ -26,6 +32,16 @@
     border: 0.25px solid #a5a5a5;
     padding: 5px 10px;
     width: 100%;
+  }
+  .inputDate {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 0.25px solid #a5a5a5;
+    padding: 6px 10px;
+    width: 100%;
+    input {
+      color: #fff;
+    }
   }
 
   .btn {
