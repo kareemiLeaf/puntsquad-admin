@@ -59,6 +59,10 @@ function VerificationComponent({ data, refetch }) {
           {data?.user_details?.[0]?.account_number || "Nill"}
         </p>
       </div>
+      <div className="my-1">
+        <p className="mb-0">BSB:</p>
+        <p className="text-center">{data?.user_details?.[0]?.bsb || "Nill"}</p>
+      </div>
     </div>
   );
   return (
@@ -121,7 +125,7 @@ function VerificationComponent({ data, refetch }) {
             )}
 
             {data?.user_details?.[0] && (
-              <Popover content={content} title="Details" placement="bottom">
+              <Popover content={content} title="Details" placement="left">
                 <Col>
                   <div className={styles.idImgWrap}>
                     <div className={styles.accountWrapper}>
@@ -129,11 +133,15 @@ function VerificationComponent({ data, refetch }) {
                         <p>Account Name:</p>
                         <p>{data?.user_details?.[0]?.account_name || "Nill"}</p>
                       </div>
-                      <div className="my-1">
+                      <div>
                         <p>Account No:</p>
                         <p>
                           {data?.user_details?.[0]?.account_number || "Nill"}
                         </p>
+                      </div>
+                      <div>
+                        <p>BSB:</p>
+                        <p>{data?.user_details?.[0]?.bsb || "Nill"}</p>
                       </div>
                     </div>
                   </div>
