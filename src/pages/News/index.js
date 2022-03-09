@@ -16,7 +16,7 @@ function News() {
     setLoading(true);
     const config = {
       method: "get",
-      url: `${BASE_URL}/news-feeds`,
+      url: `${BASE_URL}/list-news`,
       headers: {
         Authorization: await getToken(),
       },
