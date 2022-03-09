@@ -12,6 +12,7 @@ import styles from "./Users.module.scss";
 
 function Users() {
   const history = useHistory();
+  const type = history?.location?.pathname?.split("/")?.[2] || "";
   const [loading, setLoading] = useState(false);
   const userTypesArr = [
     { key: "All Users", endPoint: "users-list" },
@@ -19,8 +20,8 @@ function Users() {
     { key: "Puntsclub Users", endPoint: "top-punters" },
   ];
   const [data, setData] = useState([]);
-  const [isPunts, setPunts] = useState("users-list");
-  const getUsers = async (endPoint = "users-list") => {
+  const [isPunts, setPunts] = useState(type ? type : "users-list");
+  const getUsers = async (endPoint = type ? type : "users-list") => {
     setLoading(true);
     const config = {
       method: "get",
@@ -49,7 +50,7 @@ function Users() {
     setTipsLoading(true);
     const config = {
       method: "get",
-      url: `${BASE_URL}/web-feeds`,
+      url: `${BASE_URL}/club-feeds`,
       headers: {
         Authorization: await getToken(),
       },
@@ -58,7 +59,7 @@ function Users() {
     axios(config)
       .then(function (response) {
         setTipsLoading(false);
-        setResult(response.data?.results?.Feeds);
+        setResult(response.data?.results?.Feed);
       })
       .catch(function (error) {
         setTipsLoading(false);
@@ -108,7 +109,7 @@ function Users() {
         <Row gutter={10}>
           {data?.map((item) => (
             <Col xs={6} key={item?.id}>
-              <UserCard data={item} />
+              <UserCard data={item} isPunts={isPunts === "top-punters"} />
             </Col>
           ))}
         </Row>
@@ -120,7 +121,7 @@ function Users() {
           <Row className="mt-4" gutter={20}>
             {result?.map((item) => (
               <Col key={item?.id} className="mb-3">
-                <PlayerCard data={item} refetch={getTips} />
+                <PlayerCard data={item} refetch={getTips} punts={true} />
               </Col>
             ))}
           </Row>

@@ -6,11 +6,21 @@ import { BASE_URL } from "utils/constants";
 
 import styles from "./PlayerCard.module.scss";
 
-function PlayerCard({ article = false, data, refetch }) {
+function PlayerCard({
+  article = false,
+  data,
+  refetch,
+  punts = false,
+  tip = false,
+}) {
   const [loading, setLoading] = useState(false);
   const deleteTip = async () => {
     setLoading(true);
-    const body = article
+    const body = tip
+      ? {
+          tip_id: data?.id,
+        }
+      : article
       ? {
           news_id: data?.id,
         }
@@ -19,7 +29,9 @@ function PlayerCard({ article = false, data, refetch }) {
         };
     const config = {
       method: "post",
-      url: `${BASE_URL}/${article ? "delete-news" : "delete-tip"}`,
+      url: `${BASE_URL}/${
+        punts ? "delete-puntclub-feed" : article ? "delete-news" : "delete-tip"
+      }`,
       headers: {
         Authorization: await getToken(),
       },
@@ -44,11 +56,19 @@ function PlayerCard({ article = false, data, refetch }) {
       </p>
       <div className={styles.imageWrap}>
         <img
-          src={article ? data?.feedImage : data?.feedImages?.[0]}
+          src={
+            tip
+              ? data?.feedImage
+              : article
+              ? data?.feedImage
+              : data?.feedImages?.[0]
+          }
           alt="tip-image"
         />
       </div>
-      <p className={styles.timer}>{data?.feedExpiry} Days</p>
+      <p className={styles.timer}>
+        {tip ? data?.feedExpiry : `${data?.feedExpiry} Days`}
+      </p>
       <p className={styles.remain}>Remaining</p>
       <Button
         shape="round"

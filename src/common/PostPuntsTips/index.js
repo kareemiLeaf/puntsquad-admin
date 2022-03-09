@@ -1,9 +1,11 @@
 import { CameraFilled, SaveOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, message, Row, Upload } from "antd";
+import { Button, Col, DatePicker, message, Row, Spin, Upload } from "antd";
 import axios from "axios";
+import UserCard from "common/UserCard";
 import { useFormik } from "formik";
 import moment from "moment";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 import * as Yup from "yup";
@@ -18,11 +20,11 @@ const TipSchema = Yup.object().shape({
     .max(1000, "Too Long!")
     .required("Please enter description"),
   expiry_date: Yup.string().required("Select end date"),
-  name: Yup.string().required("Please enter name"),
 });
 
-function AddTipsComponent({ styles, getTips }) {
+function PostPuntsTips({ styles, user, fetching }) {
   const [img, setImg] = useState(null);
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
 
   const handleValue = async (values, actions) => {
@@ -32,11 +34,11 @@ function AddTipsComponent({ styles, getTips }) {
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");
-    data.append("name", values.name);
+    data.append("user_id", user?.userId);
     data.append("expiry_date", values.expiry_date);
     const config = {
       method: "post",
-      url: `${BASE_URL}/create-tips`,
+      url: `${BASE_URL}/create-puntclub-feed`,
       headers: {
         Accept: "application/json",
         Authorization: await getToken(),
@@ -51,21 +53,19 @@ function AddTipsComponent({ styles, getTips }) {
         setLoading(false);
         setImg(null);
         message.success("Tip added successfully");
-        getTips();
-        handleRemoveUser();
+        formik.resetForm();
+        history.push(`/users/top-punters`);
       })
       .catch(function (error) {
         message.error(error?.response?.data?.message);
         setLoading(false);
       });
   };
-
   const formik = useFormik({
     initialValues: {
       title: "",
       content: "",
       expiry_date: "",
-      name: "",
     },
     validationSchema: TipSchema,
     onSubmit: (values, actions) => {
@@ -77,33 +77,24 @@ function AddTipsComponent({ styles, getTips }) {
       }
     },
   });
-  const handleRemoveUser = () => {
-    formik.resetForm();
-  };
   return (
     <>
+      {user && (
+        <Col span={6}>
+          <div className="d-flex align-items-center">
+            {fetching ? <Spin /> : <UserCard data={user} />}
+          </div>
+        </Col>
+      )}
       <div className={styles.wrapper}>
         <p className={styles.heading}>Post a Tip</p>
         <Row justify="space-between">
           <Col span={14}>
             <Row justify="space-between" gutter={10}>
-              <Col span={24} className="mb-2">
-                <p className={styles.label}>Name</p>
-                <input
-                  placeholder="Enter the Name"
-                  className={styles.input}
-                  onChange={formik.handleChange("name")}
-                  onBlur={formik.handleBlur("name")}
-                  value={formik.values.name}
-                />
-                {formik.touched.name && formik.errors.name ? (
-                  <pre className="text-danger">{formik.errors?.name}</pre>
-                ) : null}
-              </Col>
               <Col span={12}>
                 <p className={styles.label}>Tip Title</p>
                 <input
-                  placeholder="Enter tip title"
+                  placeholder="Enter title"
                   className={styles.input}
                   onChange={formik.handleChange("title")}
                   onBlur={formik.handleBlur("title")}
@@ -196,4 +187,4 @@ function AddTipsComponent({ styles, getTips }) {
   );
 }
 
-export default AddTipsComponent;
+export default PostPuntsTips;

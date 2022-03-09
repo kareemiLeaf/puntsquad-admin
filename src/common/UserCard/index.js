@@ -3,12 +3,16 @@ import { useHistory } from "react-router-dom";
 
 import styles from "./UserCard.module.scss";
 
-function UserCard({ data }) {
+function UserCard({ data, isPunts }) {
   const history = useHistory();
   return (
     <div
       className={styles.UserCardWrapper}
-      onClick={() => history.push(`/user-details/${data?.userId}`)}
+      onClick={() =>
+        isPunts
+          ? history.push(`/post-punts-tips/${data?.userId}`)
+          : history.push(`/user-details/${data?.userId}`)
+      }
     >
       <div>
         <Avatar size={80} shape="circle" src={data?.image} />

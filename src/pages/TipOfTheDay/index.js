@@ -17,7 +17,7 @@ function TipOfTheDay() {
     setLoading(true);
     const config = {
       method: "get",
-      url: `${BASE_URL}/web-feeds`,
+      url: `${BASE_URL}/list-tips`,
       headers: {
         Authorization: await getToken(),
       },
@@ -26,7 +26,7 @@ function TipOfTheDay() {
     axios(config)
       .then(function (response) {
         setLoading(false);
-        setResult(response.data?.results?.Feeds);
+        setResult(response.data?.results?.tips);
       })
       .catch(function (error) {
         setLoading(false);
@@ -34,44 +34,14 @@ function TipOfTheDay() {
       });
   };
 
-  const [fetching, setFetching] = useState(false);
-  const [users, setUsers] = useState([]);
-
-  const getUsers = async () => {
-    setFetching(true);
-    const config = {
-      method: "get",
-      url: `${BASE_URL}/top-punters`,
-      headers: {
-        Accept: "application/json",
-        Authorization: await getToken(),
-      },
-    };
-
-    axios(config)
-      .then(function (response) {
-        setFetching(false);
-        setUsers(response?.data?.results?.users);
-      })
-      .catch(function (error) {
-        setFetching(false);
-        console.log(error);
-      });
-  };
   useEffect(() => {
     getTips();
-    getUsers();
   }, []);
 
   return (
     <div className={styles.TipOfTheDayWrapper}>
       <h4 className="mt-3">Tip of the day</h4>
-      <AddTipsComponent
-        styles={styles}
-        getTips={getTips}
-        users={users}
-        fetching={fetching}
-      />
+      <AddTipsComponent styles={styles} getTips={getTips} />
 
       {loading ? (
         <Loader />
@@ -79,7 +49,7 @@ function TipOfTheDay() {
         <Row className="mt-4" gutter={20}>
           {result?.map((item) => (
             <Col key={item?.id} className="mb-3">
-              <PlayerCard data={item} refetch={getTips} />
+              <PlayerCard data={item} refetch={getTips} tip={true} />
             </Col>
           ))}
         </Row>
