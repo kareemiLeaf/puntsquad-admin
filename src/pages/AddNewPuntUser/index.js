@@ -103,8 +103,18 @@ function AddNewPuntUser() {
           <Col>
             <Upload
               showUploadList={false}
-              accept="image/*"
-              onChange={(e) => setImg(e?.file?.originFileObj)}
+              accept=".jpg,.jpeg,.png"
+              data-max-size="2048"
+              beforeUpload={(file) => {
+                if (file?.size > 2097152) {
+                  message.error("Please choose a image size less than 2MB");
+                }
+              }}
+              onChange={(e) => {
+                if (e?.file?.size < 2097152) {
+                  setImg(e?.file?.originFileObj);
+                }
+              }}
             >
               <Button
                 shape="round"

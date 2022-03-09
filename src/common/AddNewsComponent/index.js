@@ -183,8 +183,17 @@ function AddNewsComponent({ styles, getNews }) {
           <div className="d-flex justify-content-center mt-4 flex-column align-items-center w-100">
             <Upload
               showUploadList={false}
-              accept="image/*"
-              onChange={(e) => setImg(e?.file?.originFileObj)}
+              accept=".jpg,.jpeg,.png"
+              beforeUpload={(file) => {
+                if (file?.size > 2097152) {
+                  message.error("Please choose a image size less than 2MB");
+                }
+              }}
+              onChange={(e) => {
+                if (e?.file?.size < 2097152) {
+                  setImg(e?.file?.originFileObj);
+                }
+              }}
             >
               <Button
                 shape="round"
