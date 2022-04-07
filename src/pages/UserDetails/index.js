@@ -1,5 +1,5 @@
 import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
-import { Avatar, Col, message, Modal, Row } from "antd";
+import { Avatar, Col, Dropdown, Menu, message, Modal, Row } from "antd";
 import back from "assets/back-filled.png";
 import clock from "assets/clock.png";
 import axios from "axios";
@@ -44,6 +44,16 @@ function UserDetails() {
         console.log(error);
       });
   };
+
+  const menu = (
+    <Menu
+      onClick={() => {
+        handleDelete();
+      }}
+    >
+      <Menu.Item>Delete</Menu.Item>
+    </Menu>
+  );
 
   const getComments = async () => {
     setFetching(true);
@@ -143,9 +153,11 @@ function UserDetails() {
           <img src={back} alt="back" className={styles.backArrow} />
           <p className={styles.back}>All Users</p>
         </div>
-        <div className="pointer" onClick={handleDelete}>
-          <MoreOutlined />
-        </div>
+        <Dropdown overlay={menu}>
+          <div className="pointer">
+            <MoreOutlined />
+          </div>
+        </Dropdown>
       </div>
       {loading ? (
         <Loader />

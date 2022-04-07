@@ -1,5 +1,5 @@
 import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { Avatar, message, Modal } from "antd";
+import { Avatar, Dropdown, Menu, message, Modal } from "antd";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { getToken } from "utils";
@@ -43,6 +43,16 @@ function UserCard({ data, isPunts, isNav = false }) {
     });
   };
 
+  const menu = (
+    <Menu
+      onClick={() => {
+        handleSubmit();
+      }}
+    >
+      <Menu.Item>Delete</Menu.Item>
+    </Menu>
+  );
+
   return (
     <div
       className={styles.UserCardWrapper}
@@ -55,14 +65,10 @@ function UserCard({ data, isPunts, isNav = false }) {
       }
     >
       {!isNav && isPunts ? (
-        <div
-          className={styles.delete}
-          onClick={(e) => {
-            e?.stopPropagation();
-            handleSubmit();
-          }}
-        >
-          <EllipsisOutlined />
+        <div className={styles.delete} onClick={(e) => e?.stopPropagation()}>
+          <Dropdown overlay={menu}>
+            <EllipsisOutlined />
+          </Dropdown>
         </div>
       ) : (
         <span />
