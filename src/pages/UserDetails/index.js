@@ -1,5 +1,5 @@
-import { MoreOutlined } from "@ant-design/icons";
-import { Avatar, Col, Row } from "antd";
+import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
+import { Avatar, Col, message, Modal, Row } from "antd";
 import back from "assets/back-filled.png";
 import clock from "assets/clock.png";
 import axios from "axios";
@@ -99,6 +99,40 @@ function UserDetails() {
     getReviews();
   }, []);
 
+  const handleDelete = () => {
+    Modal.confirm({
+      title: "Confirm",
+      icon: <DeleteOutlined />,
+      content: `Are you sure you want to delete ${result?.userName}? `,
+      okText: "Sure",
+      cancelText: "No",
+      onOk: () => deleteUser(),
+    });
+  };
+
+  const deleteUser = () => {
+    const data = { user_id: id };
+    const config = {
+      method: "post",
+      url: `${BASE_URL}/delete-user`,
+      headers: {
+        Accept: "application/json",
+        Authorization: getToken(),
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function () {
+        message.success(`${result?.userName} user is deleted successfully`);
+        history.push("/users");
+      })
+      .catch(function (error) {
+        console.log(error);
+        message.error(error?.response?.data?.message);
+      });
+  };
+
   return (
     <div className={styles.UserDetailsWrapper}>
       <div className="d-flex w-100 align-items-center justify-content-between">
@@ -109,7 +143,7 @@ function UserDetails() {
           <img src={back} alt="back" className={styles.backArrow} />
           <p className={styles.back}>All Users</p>
         </div>
-        <div>
+        <div className="pointer" onClick={handleDelete}>
           <MoreOutlined />
         </div>
       </div>
