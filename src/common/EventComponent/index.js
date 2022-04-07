@@ -61,10 +61,10 @@ function EventComponent({ data, refetch }) {
           </Dropdown>
         </div>
       </div>
-      <p className={styles.tips}>{data?.count}k tips</p>
+      <p className={styles.tips}>{data?.count} tips</p>
       <div className="d-flex align-items-center">
         <img src={clock} alt="clock" className={styles.clock} />
-        <p className={styles.title}>Complete in {data?.Expiry || 0} days</p>
+        <p className={styles.title}>Complete in {data?.Expiry || 0} </p>
       </div>
       <Progress
         strokeColor="#a5a5a5"
