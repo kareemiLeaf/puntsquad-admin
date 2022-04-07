@@ -18,7 +18,6 @@ const TipSchema = Yup.object().shape({
     .max(1000, "Too Long!")
     .required("Please enter description"),
   expiry_date: Yup.string().required("Select end date"),
-  name: Yup.string().required("Please enter name"),
 });
 
 function AddTipsComponent({ styles, getTips }) {
@@ -32,7 +31,7 @@ function AddTipsComponent({ styles, getTips }) {
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");
-    data.append("name", values.name);
+    data.append("name", "name");
     data.append("expiry_date", values.expiry_date);
     const config = {
       method: "post",
@@ -87,7 +86,7 @@ function AddTipsComponent({ styles, getTips }) {
         <Row justify="space-between">
           <Col span={14}>
             <Row justify="space-between" gutter={10}>
-              <Col span={24} className="mb-2">
+              {/* <Col span={24} className="mb-2">
                 <p className={styles.label}>Name</p>
                 <input
                   placeholder="Enter the Name"
@@ -99,7 +98,7 @@ function AddTipsComponent({ styles, getTips }) {
                 {formik.touched.name && formik.errors.name ? (
                   <pre className="text-danger">{formik.errors?.name}</pre>
                 ) : null}
-              </Col>
+              </Col> */}
               <Col span={12}>
                 <p className={styles.label}>Tip Title</p>
                 <input
