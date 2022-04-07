@@ -156,14 +156,16 @@ function UserDetails() {
                 <Col className="d-flex">
                   <img src={clock} className={styles.clock} />
                   <div>
-                    <p className={styles.profileTitle}>$22,043</p>
+                    <p className={styles.profileTitle}>${result?.totalEarn}</p>
                     <p className={styles.profileText}>Total Earn</p>
                   </div>
                 </Col>
                 <Col className="d-flex">
                   <img src={clock} className={styles.clock} />
                   <div>
-                    <p className={styles.profileTitle}>{result?.BSB}</p>
+                    <p className={styles.profileTitle}>
+                      {result?.BSB || "Nil"}
+                    </p>
                     <p className={styles.profileText}>BSB</p>
                   </div>
                 </Col>
@@ -171,7 +173,7 @@ function UserDetails() {
                   <img src={clock} className={styles.clock} />
                   <div>
                     <p className={styles.profileTitle}>
-                      {result?.Account_number}
+                      {result?.Account_number || "Nil"}
                     </p>
                     <p className={styles.profileText}>Account Number</p>
                   </div>
@@ -180,7 +182,7 @@ function UserDetails() {
                   <img src={clock} className={styles.clock} />
                   <div>
                     <p className={styles.profileTitle}>
-                      {result?.phone_number}
+                      {result?.phone_number || "Nil"}
                     </p>
                     <p className={styles.profileText}>Phone Number</p>
                   </div>
