@@ -3,8 +3,7 @@ import axios from "axios";
 import AddNewsComponent from "common/AddNewsComponent";
 import Loader from "common/Loader";
 import PlayerCard from "common/PlayerCard";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 
@@ -17,7 +16,7 @@ function News() {
     setLoading(true);
     const config = {
       method: "get",
-      url: `${BASE_URL}/news-feeds`,
+      url: `${BASE_URL}/list-news`,
       headers: {
         Authorization: await getToken(),
       },
@@ -50,7 +49,7 @@ function News() {
         <Row className="mt-4" gutter={20}>
           {result?.map((item) => (
             <Col key={item?.id}>
-              <PlayerCard article={true} data={item} />
+              <PlayerCard article={true} data={item} refetch={getNews} />
             </Col>
           ))}
         </Row>

@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Button, Col, message, Row } from "antd";
+import { Button, Col, Empty, message, Row } from "antd";
 import confirm from "antd/lib/modal/confirm";
 import axios from "axios";
 import Loader from "common/Loader";
@@ -59,7 +59,6 @@ function Report() {
     </div>
   );
   const commentData = result?.[selected];
-  console.log("commentData", commentData);
 
   const handleClick = async (type) => {
     const body =
@@ -103,11 +102,11 @@ function Report() {
     <div className={styles.ReportWrapper}>
       <div className="d-flex">
         <h4>Reports</h4>
-        <h4 className="mx-5">1 Pending</h4>
+        <h4 className="mx-5">{result?.length || 0} Pending</h4>
       </div>
 
       {loading && <Loader />}
-      {!loading && result?.length && (
+      {!loading && result?.length ? (
         <Row className={styles.wrapper}>
           <Col span={5} className={styles.col1}>
             {result?.map((item, i) => (
@@ -164,6 +163,8 @@ function Report() {
             </div>
           </Col>
         </Row>
+      ) : (
+        <Empty />
       )}
     </div>
   );

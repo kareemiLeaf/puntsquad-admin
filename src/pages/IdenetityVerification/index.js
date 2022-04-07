@@ -1,3 +1,4 @@
+import { Empty } from "antd";
 import axios from "axios";
 import Loader from "common/Loader";
 import VerificationComponent from "common/VerificationComponent";
@@ -39,7 +40,7 @@ function IdenetityVerification() {
     <div className={styles.IdenetityVerificationWrapper}>
       <div className="d-flex">
         <h4>Identity Verification</h4>
-        <h4 className="mx-5">{result?.length} Pending</h4>
+        <h4 className="mx-5">{result?.length || 0} Pending</h4>
       </div>
       {loading && <Loader />}
       {result?.map((item) => (
@@ -49,6 +50,7 @@ function IdenetityVerification() {
           refetch={getIdentyVerification}
         />
       ))}
+      {!loading && result?.length === 0 ? <Empty /> : <span />}
     </div>
   );
 }

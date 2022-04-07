@@ -17,7 +17,7 @@ function TipOfTheDay() {
     setLoading(true);
     const config = {
       method: "get",
-      url: `${BASE_URL}/web-feeds`,
+      url: `${BASE_URL}/list-tips`,
       headers: {
         Authorization: await getToken(),
       },
@@ -26,8 +26,7 @@ function TipOfTheDay() {
     axios(config)
       .then(function (response) {
         setLoading(false);
-        console.log("response.data", response.data?.results);
-        setResult(response.data?.results);
+        setResult(response.data?.results?.tips);
       })
       .catch(function (error) {
         setLoading(false);
@@ -50,7 +49,7 @@ function TipOfTheDay() {
         <Row className="mt-4" gutter={20}>
           {result?.map((item) => (
             <Col key={item?.id} className="mb-3">
-              <PlayerCard data={item} />
+              <PlayerCard data={item} refetch={getTips} tip={true} />
             </Col>
           ))}
         </Row>

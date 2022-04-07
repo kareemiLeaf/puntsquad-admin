@@ -8,6 +8,12 @@
     font-weight: 500;
     cursor: pointer;
   }
+  .linksSel {
+    padding-right: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #6418c3;
+  }
   .searchWrap {
     background-color: #15132b;
     display: flex;
@@ -15,6 +21,7 @@
     height: 50px;
     padding: 0 15px;
     border-radius: 5px;
+    cursor: pointer;
 
     img {
       height: 25px;
