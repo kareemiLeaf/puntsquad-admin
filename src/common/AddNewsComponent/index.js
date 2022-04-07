@@ -9,10 +9,6 @@ import { BASE_URL } from "utils/constants";
 import * as Yup from "yup";
 
 const EventSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Too Short!")
-    .max(250, "Too Long!")
-    .required("Please enter name"),
   title: Yup.string()
     .min(2, "Too Short!")
     .max(250, "Too Long!")
@@ -31,7 +27,7 @@ function AddNewsComponent({ styles, getNews }) {
     setLoading(true);
     const data = new FormData();
     data.append("image", img);
-    data.append("name", values.name);
+    data.append("name", "name");
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");
@@ -63,7 +59,7 @@ function AddNewsComponent({ styles, getNews }) {
   };
   return (
     <div className={styles.wrapper}>
-      <p className={styles.heading}>Post a News</p>
+      <p className={styles.heading}>Post a Article</p>
       <Row justify="space-between">
         <Formik
           initialValues={{
@@ -95,7 +91,7 @@ function AddNewsComponent({ styles, getNews }) {
             <Col span={14}>
               <Row justify="space-between" gutter={10}>
                 <Col span={12}>
-                  <p className={styles.label}>News Title</p>
+                  <p className={styles.label}>Article Title</p>
                   <input
                     placeholder="Enter news title"
                     className={styles.input}
@@ -107,21 +103,9 @@ function AddNewsComponent({ styles, getNews }) {
                     <pre className="text-danger">{errors?.title}</pre>
                   ) : null}
                 </Col>
+
                 <Col span={12}>
-                  <p className={styles.label}>Name</p>
-                  <input
-                    placeholder="Enter Publisher Name"
-                    className={styles.input}
-                    onChange={handleChange("name")}
-                    onBlur={handleBlur("name")}
-                    value={values.name}
-                  />
-                  {touched.name && errors.name ? (
-                    <pre className="text-danger">{errors?.name}</pre>
-                  ) : null}
-                </Col>
-                <Col span={12} className="mt-3">
-                  <p className={styles.label}>Expiry Date</p>
+                  <p className={styles.label}>Article Date</p>
                   <DatePicker
                     disabledDate={(current) => {
                       let customDate = moment().format("YYYY-MM-DD");
@@ -147,7 +131,7 @@ function AddNewsComponent({ styles, getNews }) {
                   ) : null}
                 </Col>
                 <Col span={24} className="my-3">
-                  <p className={styles.label}>Description</p>
+                  <p className={styles.label}>Article Content</p>
                   <textarea
                     placeholder="Enter Description"
                     className={styles.input}
@@ -176,7 +160,7 @@ function AddNewsComponent({ styles, getNews }) {
           )}
         </Formik>
         <Col span={8}>
-          <p className={styles.label}>News title image</p>
+          <p className={styles.label}>Article title image</p>
           <div className={styles.imgWrap}>
             {img && <img src={URL.createObjectURL(img)} />}
           </div>

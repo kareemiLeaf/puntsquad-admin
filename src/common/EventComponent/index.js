@@ -69,27 +69,14 @@ function EventComponent({ data, refetch }) {
       <Progress
         strokeColor="#a5a5a5"
         trailColor="#1e1c3a"
-        percent={100 - data?.Expiry}
+        percent={data?.Expiry < 100 ? data?.Expiry : 100 - data?.Expiry}
         showInfo={false}
       />
 
       <Avatar.Group className="mt-2 py-2">
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/63.jpg"
-          className="bg-white"
-        />
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/27.jpg"
-          className="bg-white"
-        />
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/14.jpg"
-          className="bg-white"
-        />
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/64.jpg"
-          className="bg-white"
-        />
+        {data?.user_images?.slice(0, 4)?.map((item, i) => (
+          <Avatar key={i} src={item} className="bg-white" />
+        ))}
       </Avatar.Group>
     </div>
   );

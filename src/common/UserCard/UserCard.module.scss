@@ -33,4 +33,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .delete{
+    position: absolute;
+    right:15px;
+    cursor: pointer;
+    top:0;
+    border:0;
+    background-color: transparent;
+  }
 }

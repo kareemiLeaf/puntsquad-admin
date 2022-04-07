@@ -1,5 +1,5 @@
 import { CloseCircleFilled, SaveOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, message, Modal, Row } from "antd";
+import { Button, Col, DatePicker, message, Modal, Row, TimePicker } from "antd";
 import axios from "axios";
 import { Formik } from "formik";
 import moment from "moment";
@@ -17,6 +17,7 @@ const TrendingSchema = Yup.object().shape({
     .required("Please enter trending hash"),
   start_date: Yup.string().required("Please select date"),
   end_date: Yup.string().required("Please select date"),
+  time: Yup.string().required("Required"),
 });
 
 function AddEvents({ show, setShow, refetch }) {
@@ -73,6 +74,7 @@ function AddEvents({ show, setShow, refetch }) {
         }}
         validationSchema={TrendingSchema}
         onSubmit={(values, actions) => {
+          console.log("values", values);
           handleAPICall(values, actions);
         }}
       >
@@ -102,7 +104,7 @@ function AddEvents({ show, setShow, refetch }) {
                 ) : null}
               </Col>
 
-              <Col className="mt-3">
+              <Col className="mt-3" span={16}>
                 <p className={styles.label}>Event duration</p>
                 <RangePicker
                   disabledDate={(current) => {
@@ -118,6 +120,19 @@ function AddEvents({ show, setShow, refetch }) {
                 />
                 {touched.start_date && errors.start_date ? (
                   <pre className="text-danger">{errors?.start_date}</pre>
+                ) : null}
+              </Col>
+              <Col className="mt-3" span={8}>
+                <p className={styles.label}>Event Time</p>
+                <TimePicker
+                  use12Hours
+                  format="h:mm a"
+                  className={styles.dateInput}
+                  bordered={false}
+                  onChange={(e) => setFieldValue("time", moment(e))}
+                />
+                {touched.time && errors.time ? (
+                  <pre className="text-danger">{errors?.time}</pre>
                 ) : null}
               </Col>
             </Row>

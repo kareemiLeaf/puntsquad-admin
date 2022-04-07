@@ -67,7 +67,7 @@ function PlayerCard({
         />
       </div>
       <p className={styles.timer}>
-        {tip ? data?.feedExpiry : `${data?.feedExpiry} Days`}
+        {tip ? data?.feedExpiry : `${data?.feedExpiry}`}
       </p>
       <p className={styles.remain}>Remaining</p>
       <Button
@@ -77,7 +77,7 @@ function PlayerCard({
         loading={loading}
         disabled={loading}
       >
-        {article ? "Delete News" : "Delete Tip"}
+        {article ? "Delete Article" : "Delete Tip"}
       </Button>
     </div>
   );

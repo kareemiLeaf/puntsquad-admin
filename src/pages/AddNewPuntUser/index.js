@@ -16,6 +16,10 @@ const PuntsSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(250, "Too Long!")
     .required("Please enter user name"),
+  speciality: Yup.string()
+    .min(2, "Too Short!")
+    .max(250, "Too Long!")
+    .required("Please enter Speciality"),
 });
 
 function AddNewPuntUser() {
@@ -26,6 +30,7 @@ function AddNewPuntUser() {
   const formik = useFormik({
     initialValues: {
       name: "",
+      speciality: "",
     },
     validationSchema: PuntsSchema,
     onSubmit: async (values, actions) => {
@@ -36,6 +41,7 @@ function AddNewPuntUser() {
         setLoading(true);
         const data = new FormData();
         data.append("name", values.name);
+        data.append("speciality", values.speciality);
         data.append("image", img);
 
         var config = {
@@ -80,7 +86,7 @@ function AddNewPuntUser() {
       <div className={styles.wrapper}>
         <h5>Add info</h5>
 
-        <Col span={8} className="pb-4">
+        <Col span={8}>
           <p className={styles.label}>PuntsClub Name</p>
           <input
             placeholder="Enter PuntsClub name"
@@ -91,6 +97,19 @@ function AddNewPuntUser() {
           />
           {formik.touched.name && formik.errors.name ? (
             <pre className="text-danger">{formik.errors?.name}</pre>
+          ) : null}
+        </Col>
+        <Col span={8} className="pb-4">
+          <p className={styles.label}>Speciality</p>
+          <input
+            placeholder="Enter Speciality"
+            className={styles.input}
+            onChange={formik.handleChange("speciality")}
+            onBlur={formik.handleBlur("speciality")}
+            value={formik.values.speciality}
+          />
+          {formik.touched.speciality && formik.errors.speciality ? (
+            <pre className="text-danger">{formik.errors?.speciality}</pre>
           ) : null}
         </Col>
         <p className={styles.label}>Users Profile Image</p>

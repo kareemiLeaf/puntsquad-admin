@@ -82,7 +82,7 @@ function PostPuntsTips({ styles, user, fetching }) {
       {user && (
         <Col span={6}>
           <div className="d-flex align-items-center">
-            {fetching ? <Spin /> : <UserCard data={user} />}
+            {fetching ? <Spin /> : <UserCard data={user} isNav={true} />}
           </div>
         </Col>
       )}
