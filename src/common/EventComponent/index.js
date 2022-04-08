@@ -53,10 +53,17 @@ function EventComponent({ data, refetch }) {
   const startDate = moment(data?.start_date);
   const endDate = moment(data?.end_date);
   const tDay = moment(new Date());
+  console.log("tDay", tDay);
 
   const result = endDate.diff(startDate, "days");
+
+  console.log("diff", result);
+
   const tDAA = endDate.diff(tDay, "days");
-  const Percent = ((result - tDAA) / result) * 100;
+  console.log("diff3", tDAA);
+
+  const Percent = (result - tDAA) / result;
+  console.log("Percent");
   return (
     <div className={styles.EventComponentWrapper}>
       <div className="d-flex align-items-center justify-content-between">
@@ -78,7 +85,7 @@ function EventComponent({ data, refetch }) {
       <Progress
         strokeColor="#a5a5a5"
         trailColor="#1e1c3a"
-        percent={100 - Percent}
+        percent={Percent * 100}
         showInfo={false}
       />
 
