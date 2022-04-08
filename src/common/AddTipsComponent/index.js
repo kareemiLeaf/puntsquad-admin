@@ -31,7 +31,7 @@ function AddTipsComponent({ styles, getTips }) {
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");
-    data.append("name", "name");
+    // data.append("name", "name");
     data.append("expiry_date", values.expiry_date);
     const config = {
       method: "post",

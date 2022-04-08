@@ -32,7 +32,6 @@ function UserCard({ data, isPunts, isNav = false }) {
         axios(config)
           .then(function () {
             message.success(`${data?.userName} user is deleted successfully`);
-            history.push(`/users/top-punters`);
             window.location.reload(true);
           })
           .catch(function (error) {
@@ -64,15 +63,12 @@ function UserCard({ data, isPunts, isNav = false }) {
           : {}
       }
     >
-      {!isNav && isPunts ? (
-        <div className={styles.delete} onClick={(e) => e?.stopPropagation()}>
-          <Dropdown overlay={menu}>
-            <EllipsisOutlined />
-          </Dropdown>
-        </div>
-      ) : (
-        <span />
-      )}
+      <div className={styles.delete} onClick={(e) => e?.stopPropagation()}>
+        <Dropdown overlay={menu}>
+          <EllipsisOutlined />
+        </Dropdown>
+      </div>
+
       <div>
         <Avatar size={80} shape="circle" src={data?.image} />
         {data?.active ? <div className={styles.status} /> : null}

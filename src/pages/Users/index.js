@@ -118,13 +118,16 @@ function Users() {
         (tipsLoading ? (
           <Loader />
         ) : (
-          <Row className="mt-4" gutter={20}>
-            {result?.map((item) => (
-              <Col key={item?.id} className="mb-3">
-                <PlayerCard data={item} refetch={getTips} punts={true} />
-              </Col>
-            ))}
-          </Row>
+          <>
+            <h5 className="text-white mb-2 mt-5">Live Puntsclub posts</h5>
+            <Row className="mt-4" gutter={20}>
+              {result?.map((item) => (
+                <Col key={item?.id} className="mb-3">
+                  <PlayerCard data={item} refetch={getTips} punts={true} />
+                </Col>
+              ))}
+            </Row>
+          </>
         ))}
     </div>
   );

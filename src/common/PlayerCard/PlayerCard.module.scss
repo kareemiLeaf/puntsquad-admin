@@ -7,6 +7,16 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    text-align: center;
+  }
+  .title1 {
+    margin-bottom: 2px;
+    font-weight: 600;
+    font-size: 15px;
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .imageWrap {
     width: 180px;
@@ -32,6 +42,10 @@
     font-weight: 500;
     color: #a5a5a5;
     margin-bottom: 10px;
+  }
+  .name{
+    text-align: center;
+    font-size: 10px;
   }
   .btn {
     width: 100%;

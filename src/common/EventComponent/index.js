@@ -2,6 +2,7 @@ import { EllipsisOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu, message, Modal, Progress } from "antd";
 import clock from "assets/grey-clock.png";
 import axios from "axios";
+import moment from "moment";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";
 
@@ -48,6 +49,14 @@ function EventComponent({ data, refetch }) {
         message.error("Something went wrong");
       });
   };
+
+  const startDate = moment(data?.start_date);
+  const endDate = moment(data?.end_date);
+  const tDay = moment(new Date());
+
+  const result = endDate.diff(startDate, "days");
+  const tDAA = endDate.diff(tDay, "days");
+  const Percent = ((result - tDAA) / result) * 100;
   return (
     <div className={styles.EventComponentWrapper}>
       <div className="d-flex align-items-center justify-content-between">
@@ -69,7 +78,7 @@ function EventComponent({ data, refetch }) {
       <Progress
         strokeColor="#a5a5a5"
         trailColor="#1e1c3a"
-        percent={data?.Expiry < 100 ? data?.Expiry : 100 - data?.Expiry}
+        percent={100 - Percent}
         showInfo={false}
       />
 

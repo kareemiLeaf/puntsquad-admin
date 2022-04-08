@@ -27,7 +27,7 @@ function AddNewsComponent({ styles, getNews }) {
     setLoading(true);
     const data = new FormData();
     data.append("image", img);
-    data.append("name", "name");
+    // data.append("name", "name");
     data.append("title", values.title);
     data.append("content", values.content);
     data.append("status", "1");

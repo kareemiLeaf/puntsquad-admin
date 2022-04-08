@@ -51,9 +51,7 @@ function PlayerCard({
   };
   return (
     <div className={styles.PlayerCardWrapper}>
-      <p className={styles.title}>
-        {article ? data?.feedTitle : data?.feedTitle}
-      </p>
+      {article ? <p className={styles.title1}>{data?.feedTitle}</p> : ""}
       <div className={styles.imageWrap}>
         <img
           src={
@@ -66,10 +64,21 @@ function PlayerCard({
           alt="tip-image"
         />
       </div>
+      {tip ? <p className={styles.title}>{data?.feedTitle}</p> : ""}
+      {punts ? (
+        <>
+          <p className={styles.title}>
+            {article ? data?.feedTitle : data?.feedTitle}
+          </p>
+          <p className={styles.name}>Posted by @ {data?.userName}</p>
+        </>
+      ) : (
+        ""
+      )}
       <p className={styles.timer}>
-        {tip ? data?.feedExpiry : `${data?.feedExpiry}`}
+        {tip || punts ? `${data?.feedExpiry} Remaining` : data?.feedExpiry}
       </p>
-      <p className={styles.remain}>Remaining</p>
+      {article ? <p className={styles.remain}>Remaining</p> : <p> </p>}
       <Button
         shape="round"
         className={styles.btn}
