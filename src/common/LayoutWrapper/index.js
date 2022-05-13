@@ -7,6 +7,7 @@ import {
   MailOutlined,
   SettingOutlined,
   WechatOutlined,
+  DashboardOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import Logo from "assets/logo.png";
@@ -63,6 +64,12 @@ function LayoutWrapper({ children }) {
       logo: <FileTextOutlined className={styles.menuicon} />,
     },
     {
+      label: "Advertising",
+      route: "/advertisement",
+      key: "9",
+      logo: <DashboardOutlined className={styles.menuicon} />,
+    },
+    {
       label: "Sign Out",
       route: "/logout",
       key: "8",
@@ -74,6 +81,7 @@ function LayoutWrapper({ children }) {
   const { pathname } = history?.location || {};
 
   console.log("pathname", pathname);
+
   const key = routes?.find((item) => item?.route == pathname)?.key;
   console.log("defaultValue", key);
 
@@ -95,6 +103,7 @@ function LayoutWrapper({ children }) {
                 key={item?.key}
                 icon={item?.logo}
                 onClick={() => {
+                  console.log("routes", item);
                   item?.route === "/logout"
                     ? handleLogout()
                     : history.push(`${item?.route}`);

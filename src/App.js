@@ -17,6 +17,7 @@ import TipOfTheDay from "pages/TipOfTheDay";
 import TrendingEvents from "pages/TrendingEvents";
 import UserDetails from "pages/UserDetails";
 import Users from "pages/Users";
+import Advertising from "pages/Advertisement";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -31,6 +32,7 @@ function App() {
         <PrivateRoute path="/user-details" component={UserDetails} />
         <PrivateRoute path="/trending-news" exact component={TrendingEvents} />
         <PrivateRoute path="/news" exact component={News} />
+        <PrivateRoute path="/advertisement" exact component={Advertising} />
         <PrivateRoute path="/tip-of-the-day" exact component={TipOfTheDay} />
         <PrivateRoute
           path="/post-punts-tips/:id"
@@ -44,6 +46,7 @@ function App() {
         />
         <PrivateRoute path="/reports" exact component={Report} />
         <PrivateRoute path="/new-punts-user" exact component={AddNewPuntUser} />
+
         <Route path="*" exact>
           <NotFound />
         </Route>
