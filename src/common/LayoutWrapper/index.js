@@ -2,12 +2,12 @@ import {
   AppstoreOutlined,
   CalendarOutlined,
   ContactsOutlined,
+  DashboardOutlined,
   // DashboardOutlined,
   FileTextOutlined,
   MailOutlined,
   SettingOutlined,
   WechatOutlined,
-  DashboardOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import Logo from "assets/logo.png";

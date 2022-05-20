@@ -15,7 +15,6 @@ const TipSchema = Yup.object().shape({
     .required("Please enter title"),
   content: Yup.string()
     .min(2, "Too Short!")
-    .max(1000, "Too Long!")
     .required("Please enter description"),
   expiry_date: Yup.string().required("Select end date"),
 });

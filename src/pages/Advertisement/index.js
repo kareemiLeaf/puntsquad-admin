@@ -1,8 +1,8 @@
 import { Col, message, Row } from "antd";
 import axios from "axios";
+import AdvertisementCard from "common/AdvertisementCard";
 import AdvertisingComponent from "common/AdvertisingComponent";
 import Loader from "common/Loader";
-import AdvertisementCard from "common/AdvertisementCard";
 import { useEffect, useState } from "react";
 import { getToken } from "utils";
 import { BASE_URL } from "utils/constants";

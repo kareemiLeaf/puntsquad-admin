@@ -1,5 +1,5 @@
 import { CameraFilled, SaveOutlined } from "@ant-design/icons";
-import { Button, Col, message, Row, Upload, Menu, Dropdown } from "antd";
+import { Button, Col, Dropdown, Menu, message, Row, Upload } from "antd";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -88,7 +88,7 @@ function AdvertisingComponent({ styles, getAds }) {
   return (
     <>
       <div className={styles.wrapper}>
-        <p className={styles.heading}>Post a Tip</p>
+        <p className={styles.heading}>Post an Advertisement</p>
         <Row justify="space-between">
           <Col span={14}>
             <Row justify="space-between" gutter={10}>
