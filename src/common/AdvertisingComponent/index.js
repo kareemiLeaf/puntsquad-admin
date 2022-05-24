@@ -10,6 +10,7 @@ import {
   TimePicker,
   Upload,
 } from "antd";
+import ImgCrop from "antd-img-crop";
 import axios from "axios";
 import { useFormik } from "formik";
 import moment from "moment";
@@ -40,6 +41,13 @@ function AdvertisingComponent({ styles, getAds }) {
   const [loading, setLoading] = useState(false);
   const [hour, setHour] = useState(moment().format("HH:MM:ss"));
   const [date, setDate] = useState(new Date());
+
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList: newFileList, file }) => {
+    setFileList(newFileList);
+    setImg(file?.originFileObj);
+  };
 
   const handleValue = async (values, actions) => {
     setLoading(true);
@@ -174,29 +182,25 @@ function AdvertisingComponent({ styles, getAds }) {
             </div>
 
             <div className="d-flex justify-content-center mt-4 flex-column align-items-center w-100">
-              <Upload
-                showUploadList={false}
-                accept=".jpg,.jpeg,.png"
-                data-max-size="2048"
-                beforeUpload={(file) => {
-                  if (file?.size > 2097152) {
-                    message.error("Please choose a image size less than 2MB");
-                  }
-                }}
-                onChange={async (e) => {
-                  if (e?.file?.size < 2097152) {
-                    setImg(e?.file?.originFileObj);
-                  }
-                }}
-              >
-                <Button
-                  shape="round"
-                  icon={<CameraFilled />}
-                  className={styles.btn1}
+              <ImgCrop grid>
+                <Upload
+                  showUploadList={false}
+                  accept=".jpg,.jpeg,.png"
+                  data-max-size="2048"
+                  multiple={false}
+                  maxCount={1}
+                  fileList={fileList}
+                  onChange={onChange}
                 >
-                  {img ? "Update Photo" : "Change Photos"}
-                </Button>
-              </Upload>
+                  <Button
+                    shape="round"
+                    icon={<CameraFilled />}
+                    className={styles.btn1}
+                  >
+                    {img ? "Update Photo" : "Change Photos"}
+                  </Button>
+                </Upload>
+              </ImgCrop>
             </div>
           </Col>
         </Row>
