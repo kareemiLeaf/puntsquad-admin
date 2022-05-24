@@ -1,5 +1,6 @@
 import { CameraFilled, SaveOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, message, Row, Upload } from "antd";
+import ImgCrop from "antd-img-crop";
 import axios from "axios";
 import { Formik } from "formik";
 import moment from "moment";
@@ -22,6 +23,12 @@ function AddNewsComponent({ styles, getNews }) {
   const [img, setImg] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList: newFileList, file }) => {
+    setFileList(newFileList);
+    setImg(file?.originFileObj);
+  };
   const handleValue = async (values, actions) => {
     setLoading(true);
     const data = new FormData();
@@ -161,31 +168,43 @@ function AddNewsComponent({ styles, getNews }) {
         <Col span={8}>
           <p className={styles.label}>Article title image</p>
           <div className={styles.imgWrap}>
-            {img && <img src={URL.createObjectURL(img)} />}
+            {img && (
+              <img
+                src={URL.createObjectURL(img)}
+                style={{ objectFit: "cover" }}
+              />
+            )}
           </div>
           <div className="d-flex justify-content-center mt-4 flex-column align-items-center w-100">
-            <Upload
-              showUploadList={false}
-              accept=".jpg,.jpeg,.png"
-              beforeUpload={(file) => {
-                if (file?.size > 2097152) {
-                  message.error("Please choose a image size less than 2MB");
-                }
-              }}
-              onChange={(e) => {
-                if (e?.file?.size < 2097152) {
-                  setImg(e?.file?.originFileObj);
-                }
-              }}
-            >
-              <Button
-                shape="round"
-                icon={<CameraFilled />}
-                className={styles.btn1}
+            <ImgCrop grid>
+              <Upload
+                showUploadList={false}
+                accept=".jpg,.jpeg,.png"
+                data-max-size="2048"
+                multiple={false}
+                maxCount={1}
+                fileList={fileList}
+                onChange={onChange}
+                // beforeUpload={(file) => {
+                //   if (file?.size > 2097152) {
+                //     message.error("Please choose a image size less than 2MB");
+                //   }
+                // }}
+                // onChange={(e) => {
+                //   if (e?.file?.size < 2097152) {
+                //     setImg(e?.file?.originFileObj);
+                //   }
+                // }}
               >
-                {img ? "Update Photo" : "Add Photo"}
-              </Button>
-            </Upload>
+                <Button
+                  shape="round"
+                  icon={<CameraFilled />}
+                  className={styles.btn1}
+                >
+                  {img ? "Update Photo" : "Add Photo"}
+                </Button>
+              </Upload>
+            </ImgCrop>
           </div>
         </Col>
       </Row>

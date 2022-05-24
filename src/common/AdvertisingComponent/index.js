@@ -28,14 +28,6 @@ const TipSchema = Yup.object().shape({
     .required("Please enter url"),
 });
 
-// function readFile(file) {
-//   return new Promise((resolve) => {
-//     const reader = new FileReader();
-//     reader.addEventListener("load", () => resolve(reader.result), false);
-//     reader.readAsDataURL(file);
-//   });
-// }
-
 function AdvertisingComponent({ styles, getAds }) {
   const [img, setImg] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -110,10 +102,10 @@ function AdvertisingComponent({ styles, getAds }) {
           <Col span={14}>
             <Row justify="space-between" gutter={10}>
               <Col span={24}>
-                <p className={styles.label}>Advertising duration</p>
+                <p className={styles.label}>Advertising Duration</p>
 
                 <Row justify="space-between" gutter={10}>
-                  <Col className="mt-3" span={10}>
+                  <Col className="mt-3" span={12}>
                     <p className={styles.label}>Advertising Date</p>
                     <DatePicker
                       // defaultValue={moment()}
@@ -131,7 +123,7 @@ function AdvertisingComponent({ styles, getAds }) {
 
                     {!date && <pre className="text-danger">{"Enter Date"}</pre>}
                   </Col>
-                  <Col className="mt-3" span={10}>
+                  <Col className="mt-3" span={12}>
                     <p className={styles.label}>Advertising Time</p>
                     <div className={styles.input2}>
                       <TimePicker
@@ -178,7 +170,12 @@ function AdvertisingComponent({ styles, getAds }) {
           <Col span={8}>
             <p className={styles.label}>Advertising Image</p>
             <div className={styles.imgWrap}>
-              {img && <img src={URL.createObjectURL(img)} />}
+              {img && (
+                <img
+                  src={URL.createObjectURL(img)}
+                  style={{ objectFit: "cover" }}
+                />
+              )}
             </div>
 
             <div className="d-flex justify-content-center mt-4 flex-column align-items-center w-100">
